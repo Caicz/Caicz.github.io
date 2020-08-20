@@ -29,7 +29,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.0.2"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<meta name="generator" content="Hexo 4.2.1"><link rel="stylesheet" href="/css/prism-okaidia.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
@@ -417,79 +417,79 @@
                 <h4 id="2020-04-24"><a href="#2020-04-24" class="headerlink" title="2020-04-24"></a>2020-04-24</h4><p>在这一天，我开始了系统的学习数论</p>
 <blockquote>
 <p><strong>筛素数</strong></p>
-<p>埃氏筛素数，<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3912">线筛法</a></p>
+<p>埃氏筛素数，<a href="https://www.luogu.com.cn/problem/P3912" target="_blank" rel="noopener">线筛法</a></p>
 </blockquote>
 <blockquote>
 <p><strong>整除与同余</strong></p>
-<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1516">exgcd与gcd</a></p>
+<p><a href="https://www.luogu.com.cn/problem/P1516" target="_blank" rel="noopener">exgcd与gcd</a></p>
 </blockquote>
 <blockquote>
 <p><strong>乘法逆元</strong></p>
-<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3811">线性递推求逆元</a>，扩展欧几里德求逆元，费马小定理求逆元($P$必须为素数)</p>
+<p><a href="https://www.luogu.com.cn/problem/P3811" target="_blank" rel="noopener">线性递推求逆元</a>，扩展欧几里德求逆元，费马小定理求逆元($P$必须为素数)</p>
 </blockquote>
 <p><strong>唯一分解定理:</strong> 每一个正整数可以唯一的表示成素数的乘积，换句话说，对于任意正整数$n$,可以得到<br>$$<br>n=2^{a_1}*3^{a_2}*5^{a_3}*\cdots<br>$$</p>
 <p>定理1:</p>
-<p>$$<br> a*b=gcd(a,b)*lcm(a,b)</p>
-<p>$$</p>
+<p>$$<br> a*b=gcd(a,b)*lcm(a,b)<br>$$</p>
 <p><strong>欧几里德算法:</strong></p>
-<pre class="line-numbers language-c++"><code class="language-c++">int gcd(int a,int b)
-&#123;
-    if(b==0)return a;
-    return gcd(b,a%b);
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">gcd</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span><span class="token keyword">int</span> b<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>b<span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token keyword">return</span> a<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token function">gcd</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span>a<span class="token operator">%</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>裴蜀定理:</strong> 对于任意两个完全为0的正整数a,b存在$xa+yb=gcd(a,b)$<br>代码实现:</p>
-<pre class="line-numbers language-c++"><code class="language-c++">int exgcd(int b,int a,int &x,int &y)
-&#123;
-    if(b==0)
-    &#123;
-        x=1,y=0;
-        return a;
-    &#125;
-    int tmp=gcd(b,a%b);
-    int t=x;
-    x=y,y=t-a/b*y;
-    return tmp
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">exgcd</span><span class="token punctuation">(</span><span class="token keyword">int</span> b<span class="token punctuation">,</span><span class="token keyword">int</span> a<span class="token punctuation">,</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>x<span class="token punctuation">,</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>y<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>b<span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        x<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>y<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> a<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">int</span> tmp<span class="token operator">=</span><span class="token function">gcd</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span>a<span class="token operator">%</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> t<span class="token operator">=</span>x<span class="token punctuation">;</span>
+    x<span class="token operator">=</span>y<span class="token punctuation">,</span>y<span class="token operator">=</span>t<span class="token operator">-</span>a<span class="token operator">/</span>b<span class="token operator">*</span>y<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> tmp
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>乘法逆元：</strong> 存在$x$使$ax\equiv 1\pmod P $成立，那么就称$x$为$a$关于$P$的乘法逆元，</p>
 <p>定理：$a$关于$P$的乘法逆元存在的充要条件是$gcd(a,p)=1$</p>
 <p>如果逆元存在，则在$0$到$P-1$范围内有且仅有一个逆元。</p>
-<p><strong>作用：</strong> 当需要求$\frac{a}{b}mod(P)$时，其中 a 很大，那么我们可以求出 $b$关于$P$的乘法逆元$x$,则有$\frac{a}{b}\equiv(a*x)\pmod P$</p>
+<p><strong>作用：</strong> 当需要求$\frac{a}{b}mod(P)$时，其中 a 很大，那么我们可以求出 $b$关于$P$的乘法逆元$x$,则有$\frac{a}{b}\equiv(a\cot x)\pmod P$</p>
 <p><strong>费马小定理：</strong> 假如 P 是素数，且$gcd(a,P)=1$那么就有$a^{p-1}\equiv 1\pmod P$</p>
-<p>我们可以推理得到$a*a^{p-2}\equiv 1\pmod P$，那么根据定义,$a^{p-2}$即为$a$的逆元，其中$a^{p-2}$可以通过快速幂来求</p>
+<p>我们可以推理得到$a\cdot a^{p-2}\equiv 1\pmod P$，那么根据定义,$a^{p-2}$即为$a$的逆元，其中$a^{p-2}$可以通过快速幂来求</p>
 <p><strong>龟速乘</strong></p>
 <p>将乘法进行二进制拆分，分步取模防止单次乘法溢出,代码类似于快速幂，只需要将其中的乘法换成加法</p>
 <p>代码实现</p>
-<pre class="line-numbers language-c++"><code class="language-c++">inline ll slow(ll a,ll b,ll mod)
-&#123;
-    ll ans=0;
-    if(b<0)b=(b%mod+mod)%mod;\\如果 b 为负数，龟速乘可能会炸掉，所以先取模将b改为正整数
-    while(b)
-    &#123;
-        if(b%2)ans=(ans+a)%mod;
-        b=b>>1;
-        a=(a<<1)%mod;
-    &#125;
-    return ans;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="咕咕分界线1"><a href="#咕咕分界线1" class="headerlink" title="咕咕分界线1"></a>咕咕分界线1</h2><h2 id="中间的时间被咕咕吃了-咕咕好心的给了地址"><a href="#中间的时间被咕咕吃了-咕咕好心的给了地址" class="headerlink" title="中间的时间被咕咕吃了,咕咕好心的给了地址"></a>中间的时间被咕咕吃了,咕咕好心的给了<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/224229/solution-p3868">地址</a></h2><h4 id="2020-05-01"><a href="#2020-05-01" class="headerlink" title="2020-05-01"></a>2020-05-01</h4><p>终于，今天到了学习数论的第三天，开始了快乐的$Catalan$数，也就是组合数的学习</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">inline</span> ll <span class="token function">slow</span><span class="token punctuation">(</span>ll a<span class="token punctuation">,</span>ll b<span class="token punctuation">,</span>ll mod<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    ll ans<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>b<span class="token operator">&lt;</span><span class="token number">0</span><span class="token punctuation">)</span>b<span class="token operator">=</span><span class="token punctuation">(</span>b<span class="token operator">%</span>mod<span class="token operator">+</span>mod<span class="token punctuation">)</span><span class="token operator">%</span>mod<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//如果 b 为负数，龟速乘可能会炸掉，所以先取模将b改为正整数</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>b<span class="token operator">%</span><span class="token number">2</span><span class="token punctuation">)</span>ans<span class="token operator">=</span><span class="token punctuation">(</span>ans<span class="token operator">+</span>a<span class="token punctuation">)</span><span class="token operator">%</span>mod<span class="token punctuation">;</span>
+        b<span class="token operator">=</span>b<span class="token operator">>></span><span class="token number">1</span><span class="token punctuation">;</span>
+        a<span class="token operator">=</span><span class="token punctuation">(</span>a<span class="token operator">&lt;&lt;</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">%</span>mod<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> ans<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="咕咕分界线1"><a href="#咕咕分界线1" class="headerlink" title="咕咕分界线1"></a>咕咕分界线1</h2><h2 id="中间的时间被咕咕吃了-咕咕好心的给了地址"><a href="#中间的时间被咕咕吃了-咕咕好心的给了地址" class="headerlink" title="中间的时间被咕咕吃了,咕咕好心的给了地址"></a>中间的时间被咕咕吃了,咕咕好心的给了<a href="https://www.luogu.com.cn/blog/224229/solution-p3868" target="_blank" rel="noopener">地址</a></h2><h4 id="2020-05-01"><a href="#2020-05-01" class="headerlink" title="2020-05-01"></a>2020-05-01</h4><p>终于，今天到了学习数论的第三天，开始了快乐的$Catalan$数，也就是组合数的学习</p>
 <blockquote>
 <p><strong>组合数</strong></p>
 </blockquote>
 <blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5732">杨辉三角</a>，<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2822">组合数问题</a></p>
+<p><a href="https://www.luogu.com.cn/problem/P5732" target="_blank" rel="noopener">杨辉三角</a>，<a href="https://www.luogu.com.cn/problem/P2822" target="_blank" rel="noopener">组合数问题</a></p>
 </blockquote>
 <blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3807">卢卡斯定理</a></p>
+<p><a href="https://www.luogu.com.cn/problem/P3807" target="_blank" rel="noopener">卢卡斯定理</a></p>
 </blockquote>
-<p><strong>卢卡斯定理:</strong> 设$P$为质数，$a,b$都为正整数，并且<br>$$<br>\left{<br>\begin{array}{c}<br>    a=a_kp^k+a_{k-1}p^{k-1}+a_{k-2}p^{k-2}+\cdots+a_1p+a_0\<br>    b=b_kp^k+b_{k-1}p^{k-1}+b_{k-2}p^{k-2}+\cdots+b_1p+b_0<br>\end{array}<br>\right.<br>$$</p>
+<p><strong>卢卡斯定理:</strong> 设$P$为质数，$a,b$都为正整数，并且</p>
+<p>$ a=a_kp^k+a_{k-1}p^{k-1}+a_{k-2}p^{k-2}+\cdots+a_1p+a_0 $<br>$ b=b_kp^k+b_{k-1}p^{k-1}+b_{k-2}p^{k-2}+\cdots+b_1p+b_0 $</p>
 <p>其中$1&lt;=a_i,b_i&lt;=p-1,i=0,1,2,3,\cdots,k$，那么就有<br>$$<br>C_b^a\equiv C_{b_k}^{a_k}\times C_{b_{k-1}}^{a_{k-1}}\times C_{b_{k-2}}^{a_{k-2}}\times\cdots C_{b_0}^{a_0}\pmod P<br>$$</p>
 <p>用递归写出来就是</p>
-<pre class="line-numbers language-c++"><code class="language-c++">    Lucas(n,m)%p=Lucas(n/p,m/p)*Catalan(n%p,m%p)%p<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-cpp"><code class="language-cpp">    <span class="token function">Lucas</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span>m<span class="token punctuation">)</span><span class="token operator">%</span>p<span class="token operator">=</span><span class="token function">Lucas</span><span class="token punctuation">(</span>n<span class="token operator">/</span>p<span class="token punctuation">,</span>m<span class="token operator">/</span>p<span class="token punctuation">)</span><span class="token operator">*</span><span class="token function">Catalan</span><span class="token punctuation">(</span>n<span class="token operator">%</span>p<span class="token punctuation">,</span>m<span class="token operator">%</span>p<span class="token punctuation">)</span><span class="token operator">%</span>p<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><strong>证明过程</strong></p>
-<h2 id="咕咕分界线2"><a href="#咕咕分界线2" class="headerlink" title="咕咕分界线2"></a>咕咕分界线2</h2><p><strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4720">拓展卢卡斯定理</a></strong> <del>PS: 感觉和卢卡斯定理关系不大</del></p>
+<h2 id="咕咕分界线2"><a href="#咕咕分界线2" class="headerlink" title="咕咕分界线2"></a>咕咕分界线2</h2><p><strong><a href="https://www.luogu.com.cn/problem/P4720" target="_blank" rel="noopener">拓展卢卡斯定理</a></strong> <del>PS: 感觉和卢卡斯定理关系不大</del></p>
 <h2 id="咕咕分界线3"><a href="#咕咕分界线3" class="headerlink" title="咕咕分界线3"></a>咕咕分界线3</h2><h4 id="2020-05-09"><a href="#2020-05-09" class="headerlink" title="2020-05-09"></a>2020-05-09</h4><p>今天开始了欧拉定理的学习</p>
 <p><strong>欧拉定理：</strong> $\phi(n)$表示从$1-n$的正整数中与$n$互质的数的个数</p>
-<p><strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5091">拓展欧拉定理</a> :</strong><br>$$<br>a^c=\left\lbrace<br>    \begin{array}{c}<br>    a^{c\bmod\phi(m)}(gcd(a,m)==1)\<br>    a^c(gcd(a,m)\neq1,c&lt;\phi(m))\<br>    a^{(c\bmod\phi(m))+\phi(m)}(gcd(a,m)\neq1,c\geq\phi(m))<br>    \end{array}<br>    \right.\pmod m<br>$$</p>
+<p><strong><a href="https://www.luogu.com.cn/problem/P5091" target="_blank" rel="noopener">拓展欧拉定理</a> :</strong><br>$$<br>a^c=<br>    \begin{cases}<br>    a^{c\bmod\phi(m)}(gcd(a,m)==1)\\<br>    a^c(gcd(a,m)\neq1,c&lt;\phi(m))\\<br>    a^{(c\bmod\phi(m))+\phi(m)}(gcd(a,m)\neq1,c\geq\phi(m))<br>    \end{cases}<br>    \pmod m<br>$$</p>
 <h2 id="咕咕分界线4"><a href="#咕咕分界线4" class="headerlink" title="咕咕分界线4"></a>咕咕分界线4</h2><h4 id="2020-07-28"><a href="#2020-07-28" class="headerlink" title="2020-07-28"></a>2020-07-28</h4>
             </div>
             <hr/>
