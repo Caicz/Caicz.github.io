@@ -564,7 +564,6 @@ header .go-back i {
     height: 60vh;
     padding: 0;
     border: 0;
-    opacity: 0;
     overflow: hidden;
     background-position: center center;
     background-size: cover;
