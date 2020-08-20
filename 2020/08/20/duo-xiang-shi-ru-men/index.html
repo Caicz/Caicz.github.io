@@ -442,10 +442,7 @@ y_k=A(\omega_n^k)=\sum_{j=0}^na_j\omega_n^{kj}</script><p>两个多项式转换�
 <h3 id="离散傅里叶逆变换-DFT"><a href="#离散傅里叶逆变换-DFT" class="headerlink" title="离散傅里叶逆变换(DFT)"></a>离散傅里叶逆变换(DFT)</h3><p>这里本来有一个通过矩阵解释的绝妙的证明过程，但矩阵在Markdown中实在太难打了，所以很遗憾</p>
 <script type="math/tex; mode=display">
 a_k=\sum_{j=0}^ny_j\omega_n^{-kj}</script><p>这样我们就完成了多项式$O(n\log n)$相乘</p>
-<ul>
-<li><h2 id="快速傅里叶逆变换"><a href="#快速傅里叶逆变换" class="headerlink" title="快速傅里叶逆变换"></a>快速傅里叶逆变换</h2></li>
-</ul>
-<h3 id="前置芝士：逆元，NTT"><a href="#前置芝士：逆元，NTT" class="headerlink" title="前置芝士：逆元，NTT"></a>前置芝士：逆元，NTT</h3><hr>
+<h2 id="快速傅里叶逆变换"><a href="#快速傅里叶逆变换" class="headerlink" title="快速傅里叶逆变换"></a>快速傅里叶逆变换</h2><h3 id="前置芝士：逆元，NTT"><a href="#前置芝士：逆元，NTT" class="headerlink" title="前置芝士：逆元，NTT"></a>前置芝士：逆元，NTT</h3><hr>
 <h4 id="逆元"><a href="#逆元" class="headerlink" title="逆元"></a>逆元</h4><p>即满足 $ax\equiv 1\mod p$ 其中 $a,p$ 互质，$x$ 即被称作 $a$ 关于 $p$ 的逆元</p>
 <p>求解逆元: 一般用 $exged$ 或者 费马小定理</p>
 <p>费马小定理求解逆元: </p>
