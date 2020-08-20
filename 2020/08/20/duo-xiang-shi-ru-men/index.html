@@ -446,13 +446,13 @@ a_k=\sum_{j=0}^ny_j\omega_n^{-kj}</script><p>这样我们就完成了多项式$O
 <li><h2 id="快速傅里叶逆变换"><a href="#快速傅里叶逆变换" class="headerlink" title="快速傅里叶逆变换"></a>快速傅里叶逆变换</h2></li>
 </ul>
 <h3 id="前置芝士：逆元，NTT"><a href="#前置芝士：逆元，NTT" class="headerlink" title="前置芝士：逆元，NTT"></a>前置芝士：逆元，NTT</h3><hr>
-<h4 id="逆元："><a href="#逆元：" class="headerlink" title="逆元："></a>逆元：</h4><p>即满足 $ax\equiv 1\mod p$ 其中 $a,p$ 互质，$x$ 即被称作 $a$ 关于 $p$ 的逆元</p>
+<h4 id="逆元"><a href="#逆元" class="headerlink" title="逆元"></a>逆元</h4><p>即满足 $ax\equiv 1\mod p$ 其中 $a,p$ 互质，$x$ 即被称作 $a$ 关于 $p$ 的逆元</p>
 <p>求解逆元: 一般用 $exged$ 或者 费马小定理</p>
 <p>费马小定理求解逆元: </p>
 <p>因为 $a^{p-1}\equiv 1\mod p$</p>
 <p>所以 $a\cdot a^{p-2}\equiv 1 \mod p$</p>
 <p>得出 $a$ 关于 $p$ 的逆元即为 $a^{p-2}$</p>
-<h4 id="快速数论变换-NTT-："><a href="#快速数论变换-NTT-：" class="headerlink" title="快速数论变换(NTT)："></a>快速数论变换(NTT)：</h4><p>关于NTT，<del>我们很明显的看出它与FFT之间的关系(通过中文</del>,它可以只在整数域内变换，完成$n\log n$多项式乘，具体实现我们使用原根 $g$ 代替了单位复数根 $\omega$ ，一般来说，NTT常用模数为<code>998244353</code>或者<code>1004535809</code>，且它们的原根都为<code>3</code></p>
+<h4 id="快速数论变换-NTT"><a href="#快速数论变换-NTT" class="headerlink" title="快速数论变换(NTT)"></a>快速数论变换(NTT)</h4><p>关于NTT，<del>我们很明显的看出它与FFT之间的关系(通过中文</del>,它可以只在整数域内变换，完成$n\log n$多项式乘，具体实现我们使用原根 $g$ 代替了单位复数根 $\omega$ ，一般来说，NTT常用模数为<code>998244353</code>或者<code>1004535809</code>，且它们的原根都为<code>3</code></p>
 <p>这里的代替即我们让 $g^{(p-1)/n}$ 等价于 $e^{2\pi i/n}$并在运算的时候对模数取模运算即可</p>
 <p>由于是整数运算，所以正常情况下要比复数运算的FFT快不少</p>
 <p>非正常情况:有关字符串匹配的问题上，NTT要比FFT慢许多</p>
