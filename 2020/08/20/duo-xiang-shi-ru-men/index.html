@@ -443,9 +443,63 @@ y_k=A(\omega_n^k)=\sum_{j=0}^na_j\omega_n^{kj}</script><p>两个多项式转换�
 <h3 id="离散傅里叶逆变换-DFT"><a href="#离散傅里叶逆变换-DFT" class="headerlink" title="离散傅里叶逆变换(DFT)"></a>离散傅里叶逆变换(DFT)</h3><p>这里本来有一个通过矩阵解释的绝妙的证明过程，但矩阵在Markdown中实在太难打了，所以很遗憾</p>
 <script type="math/tex; mode=display">
 a_k=\sum_{j=0}^ny_j\omega_n^{-kj}</script><p>这样我们就完成了多项式$O(n\log n)$相乘</p>
-<h3 id="具体实现代码"><a href="#具体实现代码" class="headerlink" title="具体实现代码"></a>具体实现代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 递归实现FFT</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Dft</span><span class="params">(comp *a,<span class="keyword">int</span> len,<span class="keyword">int</span> rev)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(len==<span class="number">1</span>)<span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i=<span class="number">0</span>;i &lt; len;++i)temp[i]=a[i];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;++i)</span><br><span class="line">        <span class="keyword">if</span>(i&amp;<span class="number">1</span>)</span><br><span class="line">            a[len/<span class="number">2</span>+i/<span class="number">2</span>]=temp[i];</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            a[i/<span class="number">2</span>]=temp[i];</span><br><span class="line">    comp *g=a,*h=a+len/<span class="number">2</span>;</span><br><span class="line">    Dft(g,len/<span class="number">2</span>,rev),Dft(h,len/<span class="number">2</span>,rev);</span><br><span class="line">    comp w(1,0),step(cos(2.0*pi/len),rev*sin(2.0*pi/len));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> k=<span class="number">0</span>;k&lt;len/<span class="number">2</span>;++k)</span><br><span class="line">    &#123;</span><br><span class="line">        comp t=w*h[k];</span><br><span class="line">        temp[k]=g[k]+t;</span><br><span class="line">        temp[k+len/<span class="number">2</span>]=g[k]-t;</span><br><span class="line">        w*=step;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;++i)a[i]=temp[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="具体实现代码"><a href="#具体实现代码" class="headerlink" title="具体实现代码"></a>具体实现代码</h3><pre class="line-numbers language-lang-cpp"><code class="language-lang-cpp">// 递归实现FFT
+inline void Dft(comp *a,int len,int rev)
+&#123;
+    if(len==1)return;
+    for(register int i=0;i < len;++i)temp[i]=a[i];
+    for(register int i=0;i<len;++i)
+        if(i&1)
+            a[len/2+i/2]=temp[i];
+        else
+            a[i/2]=temp[i];
+    comp *g=a,*h=a+len/2;
+    Dft(g,len/2,rev),Dft(h,len/2,rev);
+    comp w(1,0),step(cos(2.0*pi/len),rev*sin(2.0*pi/len));
+    for(register int k=0;k<len/2;++k)
+    &#123;
+        comp t=w*h[k];
+        temp[k]=g[k]+t;
+        temp[k+len/2]=g[k]-t;
+        w*=step;
+    &#125;
+    for(register int i=0;i<len;++i)a[i]=temp[i];
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>其中FFT有一个叫做蝴蝶变换的优化，大致即为将递归到最后一层时的得到的新数组序列预先处理好，就是将原数组排序为递归时得到的数组，再一层一层往上更新即可</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// fft蝴蝶变换</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">change</span><span class="params">(comp *a,<span class="keyword">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;++i)</span><br><span class="line">    &#123;</span><br><span class="line">        re[i]=re[i&gt;&gt;<span class="number">1</span>]&gt;&gt;<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(i&amp;<span class="number">1</span>)</span><br><span class="line">            re[i]|=len&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;++FFTi)</span><br><span class="line">        <span class="keyword">if</span>(i&lt;re[i])swap(a[i],a[re[i]]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Dft</span><span class="params">(comp *a,<span class="keyword">int</span> len,<span class="keyword">int</span> rev)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    change(a,len);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> h=<span class="number">2</span>;h&lt;=len;h&lt;&lt;=<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function">comp <span class="title">step</span><span class="params">(<span class="built_in">cos</span>(<span class="number">2.0</span>*pi/h),rev*<span class="built_in">sin</span>(<span class="number">2.0</span>*pi/h))</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> j=<span class="number">0</span>;j&lt;len;j+=h)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="function">comp <span class="title">w</span><span class="params">(<span class="number">1</span>,<span class="number">0</span>)</span></span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> k=j;k&lt;j+h/<span class="number">2</span>;++k,w*=step)</span><br><span class="line">            &#123;</span><br><span class="line">                comp u=a[k];</span><br><span class="line">                comp t=a[k+h/<span class="number">2</span>]*w;</span><br><span class="line">                a[k]=u+t;</span><br><span class="line">                a[k+h/<span class="number">2</span>]=u-t;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-lang-cpp"><code class="language-lang-cpp">// fft蝴蝶变换
+inline void change(comp *a,int len)
+&#123;
+    for(register int i=0;i<len;++i)
+    &#123;
+        re[i]=re[i>>1]>>1;
+        if(i&1)
+            re[i]|=len>>1;
+    &#125;
+    for(register int i=0;i<len;++FFTi)
+        if(i<re[i])swap(a[i],a[re[i]]);
+&#125;
+
+inline void Dft(comp *a,int len,int rev)
+&#123;
+    change(a,len);
+    for(register int h=2;h<=len;h<<=1)
+    &#123;
+        comp step(cos(2.0*pi/h),rev*sin(2.0*pi/h));
+        for(register int j=0;j<len;j+=h)
+        &#123;
+            comp w(1,0);
+            for(register int k=j;k<j+h/2;++k,w*=step)
+            &#123;
+                comp u=a[k];
+                comp t=a[k+h/2]*w;
+                a[k]=u+t;
+                a[k+h/2]=u-t;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="快速傅里叶逆变换"><a href="#快速傅里叶逆变换" class="headerlink" title="快速傅里叶逆变换"></a>快速傅里叶逆变换</h2><h3 id="前置芝士：逆元，NTT"><a href="#前置芝士：逆元，NTT" class="headerlink" title="前置芝士：逆元，NTT"></a>前置芝士：逆元，NTT</h3><hr>
 <h4 id="逆元"><a href="#逆元" class="headerlink" title="逆元"></a>逆元</h4><p>即满足 $ax\equiv 1\mod p$ 其中 $a,p$ 互质，$x$ 即被称作 $a$ 关于 $p$ 的逆元</p>
 <p>求解逆元: 一般用 $exged$ 或者 费马小定理</p>
@@ -941,6 +995,22 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!--<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 
 </html>
