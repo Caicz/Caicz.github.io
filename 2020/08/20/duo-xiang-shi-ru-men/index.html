@@ -403,16 +403,18 @@
                 
 
                 
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
             </div>
         </div>
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h5 id="先贴个tp-其实是自己不会"><a href="#先贴个tp-其实是自己不会" class="headerlink" title="先贴个tp(其实是自己不会"></a>先贴个tp(其实是自己不会</h5><h3 id="呜噜噜多项式普及"><a href="#呜噜噜多项式普及" class="headerlink" title="呜噜噜多项式普及"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/happydef-blog/duo-xiang-shi-quan-jia-tong-xue-xi-bi-ji-ji-chu#">呜噜噜多项式普及</a></h3><h3 id="呜噜噜多项式提高"><a href="#呜噜噜多项式提高" class="headerlink" title="呜噜噜多项式提高"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/happydef-blog/duo-xiang-shi-quan-jia-tong-xue-xi-bi-ji-jin-jie-post#">呜噜噜多项式提高</a></h3><hr>
-<ul>
-<li><h2 id="关于多项式"><a href="#关于多项式" class="headerlink" title="关于多项式"></a>关于多项式</h2></li>
-</ul>
-<p>它一般以这样的形态出现</p>
+<h2 id="关于多项式"><a href="#关于多项式" class="headerlink" title="关于多项式"></a>关于多项式</h2><p>它一般以这样的形态出现</p>
 <script type="math/tex; mode=display">
     A(x)=a_0+a_1x+a_2x^2+\cdots+a_nx^n</script><p>其中 $x$ 被称作<strong>自变量</strong>(?)，对应的每个 $a_0,a_1,a_2\cdots$称为这个多项式的<strong>系数</strong>，对于这个多项式的<strong>最高次数</strong> $n$，我们称之为这个多项式的 <strong>度degree</strong>。</p>
 <p>对于每个题目而言，我们知道的同时需要操作的一般也就是它的系数和它的度</p>
@@ -420,10 +422,7 @@
 <p>这里我们引入一个新的概念(至少我是从这里才知道的)——— <strong>卷积</strong></p>
 <p>形如$c_i=\sum_{j=0}^{i}{a_j\times b_{i-j}}$ 中的 $c_i$ 我们称之为 $a,b$ 两个数组的卷积</p>
 <p>那么两个多项式相乘，实际上就是求两个多项式的卷积即$c_ix^i=\sum_{j=0}^{i}{a_jx^j\times b_{i-j}x^{i-j}}$，同时原本度都为为 $n$ 的两个多项式相乘后得到的多项式的度也就变成了 $2n$ .</p>
-<ul>
-<li><h2 id="快速傅里叶变换-FFT"><a href="#快速傅里叶变换-FFT" class="headerlink" title="快速傅里叶变换(FFT)"></a>快速傅里叶变换(FFT)</h2></li>
-</ul>
-<p>通过定义式，我们知道两个多项式相乘的复杂度是 $O(n^2)$ 级别的，这对于大多数的题目而言都太慢了，所以我们需要更优秀的算法，多项式的快速变换也就应运而生</p>
+<h2 id="快速傅里叶变换-FFT"><a href="#快速傅里叶变换-FFT" class="headerlink" title="快速傅里叶变换(FFT)"></a>快速傅里叶变换(FFT)</h2><p>通过定义式，我们知道两个多项式相乘的复杂度是 $O(n^2)$ 级别的，这对于大多数的题目而言都太慢了，所以我们需要更优秀的算法，多项式的快速变换也就应运而生</p>
 <p>对于一个多项式，我们不仅有系数表达(就是以上所用的表达)，还有<strong>点值表达</strong></p>
 <p>就好像 $n+1$ 个点就可以确定一个次数为 $n$ 的函数图像一样，一个度为 $n$ 多项式也可以转化为 $n+1$ 个点值</p>
 <h3 id="如何转换"><a href="#如何转换" class="headerlink" title="如何转换"></a>如何转换</h3><p>首先我们又得引入几个新的概念：</p>
@@ -443,63 +442,6 @@ y_k=A(\omega_n^k)=\sum_{j=0}^na_j\omega_n^{kj}</script><p>两个多项式转换�
 <h3 id="离散傅里叶逆变换-DFT"><a href="#离散傅里叶逆变换-DFT" class="headerlink" title="离散傅里叶逆变换(DFT)"></a>离散傅里叶逆变换(DFT)</h3><p>这里本来有一个通过矩阵解释的绝妙的证明过程，但矩阵在Markdown中实在太难打了，所以很遗憾</p>
 <script type="math/tex; mode=display">
 a_k=\sum_{j=0}^ny_j\omega_n^{-kj}</script><p>这样我们就完成了多项式$O(n\log n)$相乘</p>
-<h3 id="具体实现代码"><a href="#具体实现代码" class="headerlink" title="具体实现代码"></a>具体实现代码</h3><pre class=" language-lang-cpp"><code class="language-lang-cpp">// 递归实现FFTFFT
-inline void Dft(comp *a,int len,int rev)
-&#123;
-    if(len==1)return;
-    for(register int i=0;i<len;++i)temp[i]=a[i];
-    for(register int i=0;i<len;++i)
-        if(i&1)
-            a[len/2+i/2]=temp[i];
-        else
-            a[i/2]=temp[i];
-    comp *g=a,*h=a+len/2;
-    Dft(g,len/2,rev),Dft(h,len/2,rev);
-    comp w(1,0),step(cos(2.0*pi/len),rev*sin(2.0*pi/len));
-    for(register int k=0;k<len/2;++k)
-    &#123;
-        comp t=w*h[k];
-        temp[k]=g[k]+t;
-        temp[k+len/2]=g[k]-t;
-        w*=step;
-    &#125;
-    for(register int i=0;i<len;++i)a[i]=temp[i];
-&#125;
-</code></pre>
-<p>其中FFT有一个叫做蝴蝶变换的优化，大致即为将递归到最后一层时的得到的新数组序列预先处理好，就是将原数组排序为递归时得到的数组，再一层一层往上更新即可</p>
-<pre class=" language-lang-cpp"><code class="language-lang-cpp">// fft蝴蝶变换
-inline void change(comp *a,int len)
-&#123;
-    for(register int i=0;i<len;++i)
-    &#123;
-        re[i]=re[i>>1]>>1;
-        if(i&1)
-            re[i]|=len>>1;
-    &#125;
-    for(register int i=0;i<len;++FFTi)
-        if(i<re[i])swap(a[i],a[re[i]]);
-&#125;
-
-inline void Dft(comp *a,int len,int rev)
-&#123;
-    change(a,len);
-    for(register int h=2;h<=len;h<<=1)
-    &#123;
-        comp step(cos(2.0*pi/h),rev*sin(2.0*pi/h));
-        for(register int j=0;j<len;j+=h)
-        &#123;
-            comp w(1,0);
-            for(register int k=j;k<j+h/2;++k,w*=step)
-            &#123;
-                comp u=a[k];
-                comp t=a[k+h/2]*w;
-                a[k]=u+t;
-                a[k+h/2]=u-t;
-            &#125;
-        &#125;
-    &#125;
-&#125;
-</code></pre>
 <ul>
 <li><h2 id="快速傅里叶逆变换"><a href="#快速傅里叶逆变换" class="headerlink" title="快速傅里叶逆变换"></a>快速傅里叶逆变换</h2></li>
 </ul>

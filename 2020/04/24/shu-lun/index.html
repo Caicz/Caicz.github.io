@@ -403,6 +403,11 @@
                 
 
                 
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
             </div>
         </div>
         <hr class="clearfix">
@@ -422,14 +427,14 @@
 n=2^{a_1}*3^{a_2}*5^{a_3}*\cdots</script><p>定理1:</p>
 <script type="math/tex; mode=display">
  a*b=gcd(a,b)*lcm(a,b)</script><p><strong>欧几里德算法:</strong></p>
-<pre class=" language-lang-cpp"><code class="language-lang-cpp">int gcd(int a,int b)
+<pre class=" language-lang-c++"><code class="language-lang-c++">int gcd(int a,int b)
 &#123;
     if(b==0)return a;
     return gcd(b,a%b);
 &#125;
 </code></pre>
 <p><strong>裴蜀定理:</strong> 对于任意两个完全为0的正整数a,b存在$xa+yb=gcd(a,b)$<br>代码实现:</p>
-<pre class=" language-lang-cpp"><code class="language-lang-cpp">int exgcd(int b,int a,int &x,int &y)
+<pre class=" language-lang-c++"><code class="language-lang-c++">int exgcd(int b,int a,int &x,int &y)
 &#123;
     if(b==0)
     &#123;
@@ -451,7 +456,7 @@ n=2^{a_1}*3^{a_2}*5^{a_3}*\cdots</script><p>定理1:</p>
 <p><strong>龟速乘</strong></p>
 <p>将乘法进行二进制拆分，分步取模防止单次乘法溢出,代码类似于快速幂，只需要将其中的乘法换成加法</p>
 <p>代码实现</p>
-<pre class=" language-lang-cpp"><code class="language-lang-cpp">inline ll slow(ll a,ll b,ll mod)
+<pre class=" language-lang-c++"><code class="language-lang-c++">inline ll slow(ll a,ll b,ll mod)
 &#123;
     ll ans=0;
     if(b<0)b=(b%mod+mod)%mod;\\如果 b 为负数，龟速乘可能会炸掉，所以先取模将b改为正整数
@@ -480,7 +485,7 @@ n=2^{a_1}*3^{a_2}*5^{a_3}*\cdots</script><p>定理1:</p>
 \right.</script><p>其中$1&lt;=a_i,b_i&lt;=p-1,i=0,1,2,3,\cdots,k$，那么就有</p>
 <script type="math/tex; mode=display">
 C_b^a\equiv C_{b_k}^{a_k}\times C_{b_{k-1}}^{a_{k-1}}\times C_{b_{k-2}}^{a_{k-2}}\times\cdots C_{b_0}^{a_0}\pmod P</script><p>用递归写出来就是</p>
-<pre class=" language-lang-cpp"><code class="language-lang-cpp">    Lucas(n,m)%p=Lucas(n/p,m/p)*Catalan(n%p,m%p)%p
+<pre class=" language-lang-c++"><code class="language-lang-c++">    Lucas(n,m)%p=Lucas(n/p,m/p)*Catalan(n%p,m%p)%p
 </code></pre>
 <p><strong>证明过程</strong></p>
 <h2 id="咕咕分界线2"><a href="#咕咕分界线2" class="headerlink" title="咕咕分界线2"></a>咕咕分界线2</h2><p><strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4720">拓展卢卡斯定理</a></strong> <del>PS: 感觉和卢卡斯定理关系不大</del></p>
