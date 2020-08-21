@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>整除-数论分块</title>
+      <link href="/2020/08/21/zheng-chu-shu-lun-fen-kuai/"/>
+      <url>/2020/08/21/zheng-chu-shu-lun-fen-kuai/</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>学习完莫比乌斯反演之后，Caicz 信心满满的打开一道例题，推出例如这样的式子<br>$$<br>\sum_{T=1}^{\min(n,m)}\lfloor\frac{n}{T}\rfloor\cdot\lfloor\frac{m}{T}\rfloor(\sum_{k|T，k\in prime}\mu(\frac{T}{k}))<br>$$<br>之后，对于每组询问都这样做一遍果断T飞，<del>于是果断点开题解</del>，然后发现了多组求解的科技<strong>整除分块</strong></p><h3 id="整除分块"><a href="#整除分块" class="headerlink" title="整除分块"></a>整除分块</h3><p>一般来说，我们会用到整除分块的形式大概长这样:<br>$$<br>\sum_{i=1}^n\lfloor\frac{n}{i}\rfloor<br>$$<br>显然的，我们可以 $O(n)$ 快速计算这个式子。但是，有时候在多组询问下， $O(n)$ 解决每组询问也许并不能解决，于是我们就可以通过整除分块 $O(\sqrt n)$完成每组询问</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 基础学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数学 </tag>
+            
+            <tag> 莫比乌斯反演 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>莫比乌斯反演</title>
       <link href="/2020/08/21/mo-bi-wu-si-fan-yan/"/>
       <url>/2020/08/21/mo-bi-wu-si-fan-yan/</url>
