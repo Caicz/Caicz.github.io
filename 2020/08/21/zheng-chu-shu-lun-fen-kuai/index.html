@@ -419,7 +419,16 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>学习完莫比乌斯反演之后，Caicz 信心满满的打开一道例题，推出例如这样的式子<br>$$<br>\sum_{T=1}^{\min(n,m)}\lfloor\frac{n}{T}\rfloor\cdot\lfloor\frac{m}{T}\rfloor(\sum_{k|T，k\in prime}\mu(\frac{T}{k}))<br>$$<br>之后，对于每组询问都这样做一遍果断T飞，<del>于是果断点开题解</del>，然后发现了多组求解的科技<strong>整除分块</strong></p>
-<h3 id="整除分块"><a href="#整除分块" class="headerlink" title="整除分块"></a>整除分块</h3><p>一般来说，我们会用到整除分块的形式大概长这样:<br>$$<br>\sum_{i=1}^n\lfloor\frac{n}{i}\rfloor<br>$$<br>显然的，我们可以 $O(n)$ 快速计算这个式子。但是，有时候在多组询问下， $O(n)$ 解决每组询问也许并不能解决，于是我们就可以通过整除分块 $O(\sqrt n)$完成每组询问</p>
+<h3 id="整除分块"><a href="#整除分块" class="headerlink" title="整除分块"></a>整除分块</h3><p>一般来说，我们会用到整除分块的形式大概长这样:<br>$$<br>\sum_{i=1}^n\lfloor\frac{n}{i}\rfloor<br>$$<br>显然的，我们可以 $O(n)$ 快速计算这个式子。但是，有时候在多组询问下， $O(n)$ 解决每组询问也许并不能解决，于是我们就可以通过整除分块 $O(\sqrt{n})$完成每组询问</p>
+<p>设 $f(x)=\lfloor\frac{n}{x}\rfloor$ ，则对于 $f(x)$ 我们容易发现它的值是连续且逐步递增的；简单来说即是呈块状分布。同时，我们通过打表等玄学方法可以得到每个块的最后一个数的位置即为 $\large{\frac{n}{\lfloor\frac{n}{i}\rfloor}}$ ,得出结论之后，我们就可以简单的 $O(\sqrt{n})$处理了</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">register</span> <span class="token keyword">int</span> l<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>r<span class="token punctuation">;</span>l<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span>l<span class="token operator">=</span>r<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    r<span class="token operator">=</span>n<span class="token operator">/</span><span class="token punctuation">(</span>n<span class="token operator">/</span>l<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ans<span class="token operator">+</span><span class="token operator">=</span><span class="token punctuation">(</span>r<span class="token operator">-</span>l<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token punctuation">(</span>n<span class="token operator">/</span>l<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>整除分块单独来说并不难，但是有时候我们推出来的式子还会含有其他的函数，此时我们就需要对这些函数求一个前缀和</p>
+<p>当然，在一些难度较高的题目里面，我们甚至难以接受 $O(n)$ 预处理前缀和，这时我们就需要运用<strong>杜教筛</strong></p>
+<h3 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h3><p><a href="https://www.cnblogs.com/peng-ym/p/8661118.html" target="_blank" rel="noopener"> https://www.cnblogs.com/peng-ym/p/8661118.html </a></p>
 
             </div>
             <hr/>
