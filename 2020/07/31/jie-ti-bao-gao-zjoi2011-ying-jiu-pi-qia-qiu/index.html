@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="【解题报告】AGC026D - Histogram Coloring, Caicz&#39;s blog">
+    <meta name="keywords" content="【解题报告】[ZJOI2011]营救皮卡丘, Caicz&#39;s blog">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>【解题报告】AGC026D - Histogram Coloring | Caicz&#39;s blog</title>
+    <title>【解题报告】[ZJOI2011]营救皮卡丘 | Caicz&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -246,12 +246,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">【解题报告】AGC026D - Histogram Coloring</h1>
+                    <h1 class="description center-align post-title">【解题报告】[ZJOI2011]营救皮卡丘</h1>
                 </div>
             </div>
         </div>
@@ -368,12 +368,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/DP/">
-                                <span class="chip bg-color">DP</span>
+                            <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/">
+                                <span class="chip bg-color">网络流</span>
                             </a>
                         
-                            <a href="/tags/DP%E4%BC%98%E5%8C%96/">
-                                <span class="chip bg-color">DP优化</span>
+                            <a href="/tags/%E8%B4%B9%E7%94%A8%E6%B5%81/">
+                                <span class="chip bg-color">费用流</span>
                             </a>
                         
                     </div>
@@ -418,69 +418,39 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><a href="https://atcoder.jp/contests/agc026/tasks/agc026_d" target="_blank" rel="noopener">题目链接</a></p>
-<hr>
-<h4 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h4><p>给你一个有 $N$ 列 $1e9$ 行的直方图，对于第 $i$ 列只保留最下面下面的 $h[i]$ 行。现在你有黑白两种不同的颜色来对这张保留后的图涂色，要求满足对于每个 $2\times2$ 的大方格，必须满足每种颜色恰好占这个大方格的一半，求涂抹的方案总数。答案对1e9+7取模。<br>$$<br>1&lt;=N&lt;=100\text{且}0&lt;=h[i]&lt;=1e9<br>$$</p>
-<h4 id="仓鼠zzy题解"><a href="#仓鼠zzy题解" class="headerlink" title="仓鼠zzy题解:"></a>仓鼠zzy题解:</h4><blockquote>
-<p>首先考虑一个完整的矩形如何计数答案<br>假如已经决定了前面的行，要新增一行。首先可以把上面一行全部翻转当成新增一行；特殊地，当上面一行是黑白相间的，可以直接把上面一行复制下来<br>对于原问题考虑笛卡尔树dp，实际上就是每次把最低的一层给消掉。这样也构成了一个树的结构，然后从下往上dp，每次记录是否黑白相间的情况<br>转移需要把所有上面的层合并，讨论一些情况</p>
-</blockquote>
-<h4 id="自己的解释"><a href="#自己的解释" class="headerlink" title="自己的解释:"></a>自己的解释:</h4><p>1.对于一个高为 $H$，宽为 $len$ 的完整矩形。</p>
-<p><strong>首先设 $ans1$ 表示涂抹方式为黑白相间合法的方案数，$ans0$ 为非黑白相间的合法涂抹方案数</strong></p>
-<p>我们考虑分两种情况考虑，<strong>如果第一行不是黑白相间的，那么对于后面行只有唯一的涂抹方式,即:</strong><br>$$<br>ans0=2^{len}-2;<br>$$<br><strong>如果第一行为黑白相间的涂抹方式，那么对于后面每一行都有两种涂抹方式,即</strong><br>$$<br>ans1=2^{H}<br>$$<br>2.回到原问题，对于一个不规则的直方图，<strong>我们考虑将其划分成多个完整的矩形，并将每个完整小矩形离散化为一个点，然后构建出一棵树来转移。离散化代码:</strong></p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token keyword">int</span> l<span class="token punctuation">,</span><span class="token keyword">int</span> r<span class="token punctuation">,</span><span class="token keyword">int</span> id<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">int</span> minheight<span class="token operator">=</span>inf<span class="token punctuation">,</span>top<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> st<span class="token punctuation">[</span>maxn<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    si<span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token operator">=</span>r<span class="token operator">-</span>l<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">register</span> <span class="token keyword">int</span> i<span class="token operator">=</span>l<span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>r<span class="token punctuation">;</span><span class="token operator">++</span>i<span class="token punctuation">)</span>
+                <h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a><a href="https://www.luogu.com.cn/problem/P4542" target="_blank" rel="noopener">题目链接</a></h3><hr>
+<p>首先 , 我们可以轻易的从数据范围<code>N&lt;&lt;M</code>看出，这是一道网络流</p>
+<p>在得出算法后，我们开始考虑建模。</p>
+<p>根据题目条件：</p>
+<ol>
+<li><code>在经过K-1号点之前，任何人是不能够经过K号据点的。</code>，同时由于 $N\le150$ 这里很容易想到跑一遍带限制的Floyd，即由 $x\to y$ ，不经过节点编号比 $y$ 大的点，再从所有编号小的点向编号大的点连一条流量为 $1$ , 边权为 $dis(i,j)$ 的边.</li>
+<li>同时，我们最终要到达 $N$ 号点，即每个点均需到达至少一次。所以我们将除了 $0$ 号点以外的点都向汇点连一条流量为 $1$ ，边权为 $0$ 的边</li>
+<li><code>小智一行K人从真新镇出发.</code>这个很好解决，我们直接从源点向 $0$ 号点连一条流量为 $K$,边权为 $0$ 的边</li>
+</ol>
+<p>在粗略建模完成后，我们发现了一个问题: 从源点出去的流量远小于我们需要的最大流，所以我们考虑网络流常用的拆点思路解决。</p>
+<p><strong>我们将每个点拆为入点和出点，将每个点的入点向汇点连边，再将源点向每个点的出点连一条流量为 $1$ 边权为 $0$ 的边，其余点之间的连边即从 $x$ 的出点，向 $y$ 的入点连边即可</strong></p>
+<p>$$<br>\large\color{grey}{\text{Talk is cheap , show you the code}}<br>$$</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">//核心建模代码</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">register</span> <span class="token keyword">int</span> u<span class="token punctuation">,</span>v<span class="token punctuation">,</span>w<span class="token punctuation">,</span>i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>m<span class="token punctuation">;</span><span class="token operator">++</span>i<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>h<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">&lt;=</span>minheight<span class="token punctuation">)</span>
-        <span class="token punctuation">{</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>h<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">&lt;</span>minheight<span class="token punctuation">)</span>
-            <span class="token punctuation">{</span>
-                top<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
-                minheight<span class="token operator">=</span>h<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-                st<span class="token punctuation">[</span><span class="token operator">++</span>top<span class="token punctuation">]</span><span class="token operator">=</span>i<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            <span class="token keyword">else</span>
-                st<span class="token punctuation">[</span><span class="token operator">++</span>top<span class="token punctuation">]</span><span class="token operator">=</span>i<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+        u<span class="token operator">=</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>v<span class="token operator">=</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>w<span class="token operator">=</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token operator">++</span>u<span class="token punctuation">,</span><span class="token operator">++</span>v<span class="token punctuation">;</span>
+        f<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token operator">=</span>f<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token operator">=</span><span class="token function">min</span><span class="token punctuation">(</span>f<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">,</span>w<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-    st<span class="token punctuation">[</span><span class="token operator">++</span>top<span class="token punctuation">]</span><span class="token operator">=</span>r<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token operator">=</span>minheight<span class="token punctuation">;</span>
-    <span class="token keyword">int</span> lastgo<span class="token operator">=</span>l<span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">register</span> <span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>top<span class="token punctuation">;</span><span class="token operator">++</span>i<span class="token punctuation">)</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">register</span> <span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span><span class="token operator">++</span>i<span class="token punctuation">)</span>f<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">register</span> <span class="token keyword">int</span> k<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>k<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span><span class="token operator">++</span>k<span class="token punctuation">)</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">register</span> <span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span><span class="token operator">++</span>i<span class="token punctuation">)</span>
+            <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">register</span> <span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>j<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span><span class="token operator">++</span>j<span class="token punctuation">)</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>k<span class="token operator">&lt;</span>i<span class="token operator">||</span>k<span class="token operator">&lt;</span>j<span class="token punctuation">)</span>f<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">=</span><span class="token function">min</span><span class="token punctuation">(</span>f<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span>f<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token operator">+</span>f<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">register</span> <span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span><span class="token operator">++</span>i<span class="token punctuation">)</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">register</span> <span class="token keyword">int</span> j<span class="token operator">=</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span>j<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span><span class="token operator">++</span>j<span class="token punctuation">)</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>f<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">!=</span>inf<span class="token punctuation">)</span><span class="token function">addedge</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>j<span class="token operator">+</span>n<span class="token punctuation">,</span>inf<span class="token punctuation">,</span>f<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">addedge</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span>lim<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">register</span> <span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span><span class="token operator">++</span>i<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>st<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">==</span>lastgo<span class="token punctuation">)</span>
-        <span class="token punctuation">{</span>
-            <span class="token operator">++</span>lastgo<span class="token punctuation">;</span>
-            <span class="token keyword">continue</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token operator">++</span>tot<span class="token punctuation">;</span>
-        c<span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>tot<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">build</span><span class="token punctuation">(</span>lastgo<span class="token punctuation">,</span>st<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span>tot<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        lastgo<span class="token operator">=</span>st<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>离散化完成后，我们就可以设 $dp[u][0]$ 为对于当前节点涂抹中为<strong>非黑白相间的合法涂抹方式，</strong>$dp[u][1]$ 为<strong>黑白相间的合法涂抹方式。</strong></p>
-<p>那么我们就可以推出转移方程:<br>$$<br>\begin{cases}<br>W=len_u-\sum_{v\in son_u}lenv\\<br>dp[u][0]=2^W\times\prod_{v\in son_u}(dp[v][0]+dp[v][1])+(2^W-2)\times\prod_{v\in son_u}dp[v][1]\\<br>dp[u][1]= 2^{H_u}\times\prod_{v\in son_u}dp[v<br>][1]<br>\end{cases}<br>$$</p>
-<p><strong>树上递归实现：</strong></p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">dfs</span><span class="token punctuation">(</span><span class="token keyword">int</span> u<span class="token punctuation">,</span><span class="token keyword">int</span> lasth<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">int</span> sum<span class="token operator">=</span>si<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> H<span class="token operator">=</span>a<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token operator">-</span>lasth<span class="token punctuation">;</span>
-    f<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>f<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">register</span> <span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>c<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token operator">++</span>i<span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> v<span class="token operator">=</span>c<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token function">dfs</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span>a<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        f<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">(</span>f<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token punctuation">(</span>f<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">+</span>f<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">%</span>p<span class="token punctuation">)</span><span class="token operator">%</span>p<span class="token operator">+</span><span class="token punctuation">(</span>f<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">*</span>f<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">%</span>p<span class="token punctuation">)</span><span class="token operator">%</span>p<span class="token punctuation">;</span>
-        f<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">(</span>f<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">*</span>f<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">%</span>p<span class="token punctuation">;</span>
-        sum<span class="token operator">-</span><span class="token operator">=</span>si<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    f<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token punctuation">(</span>f<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">*</span><span class="token function">ksm</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span>sum<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">%</span>p<span class="token operator">+</span><span class="token punctuation">(</span>p<span class="token number">-2</span><span class="token operator">*</span>f<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">%</span>p<span class="token punctuation">)</span><span class="token operator">%</span>p<span class="token punctuation">)</span><span class="token operator">%</span>p<span class="token punctuation">;</span>
-    f<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">(</span>f<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">*</span><span class="token function">ksm</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span>H<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">%</span>p<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>$$<br>\text{the end}<br>$$</p>
+        <span class="token function">addedge</span><span class="token punctuation">(</span>i<span class="token operator">+</span>n<span class="token punctuation">,</span>t<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>i<span class="token operator">!=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token function">addedge</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span>i<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -506,7 +476,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://caicz.github.io/2020/07/31/jie-ti-bao-gao-agc026d-histogram-coloring/">https://caicz.github.io/2020/07/31/jie-ti-bao-gao-agc026d-histogram-coloring/</a>
+                    <a href="https://caicz.github.io/2020/07/31/jie-ti-bao-gao-zjoi2011-ying-jiu-pi-qia-qiu/">https://caicz.github.io/2020/07/31/jie-ti-bao-gao-zjoi2011-ying-jiu-pi-qia-qiu/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -544,12 +514,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/DP/">
-                                    <span class="chip bg-color">DP</span>
+                                <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/">
+                                    <span class="chip bg-color">网络流</span>
                                 </a>
                             
-                                <a href="/tags/DP%E4%BC%98%E5%8C%96/">
-                                    <span class="chip bg-color">DP优化</span>
+                                <a href="/tags/%E8%B4%B9%E7%94%A8%E6%B5%81/">
+                                    <span class="chip bg-color">费用流</span>
                                 </a>
                             
                         </div>
@@ -594,7 +564,7 @@
         repo: 'Caicz.github.io',
         owner: 'Caicz',
         admin: "Caicz",
-        id: '2020-07-31T16-17-10',
+        id: '2020-07-31T09-32-40',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -622,78 +592,25 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/08/20/lun-amd/">
+                <a href="/2020/07/31/jie-ti-bao-gao-agc026d-histogram-coloring/">
                     <div class="card-image">
                         
-                        <img src="https://s1.ax1x.com/2020/08/20/d3cDJA.jpg" class="responsive-img" alt="论AMD">
                         
-                        <span class="card-title">论AMD</span>
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="【解题报告】AGC026D - Histogram Coloring">
+                        
+                        <span class="card-title">【解题报告】AGC026D - Histogram Coloring</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            哈萨克斯坦军备为什么比不过美国？
-
+                            给你一个有 N 列 1e9 行的直方图，对于第 i 列只保留最下面下面的  h[i] 行……
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-08-20
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-31
                         </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%86%9B%E4%BA%8B%E6%BC%94%E4%B9%A0/" class="post-category">
-                                    军事演习
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/AMD/">
-                        <span class="chip bg-color">AMD</span>
-                    </a>
-                    
-                    <a href="/tags/Nvidia/">
-                        <span class="chip bg-color">Nvidia</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/07/31/jie-ti-bao-gao-zjoi2011-ying-jiu-pi-qia-qiu/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="【解题报告】[ZJOI2011]营救皮卡丘">
-                        
-                        <span class="card-title">【解题报告】[ZJOI2011]营救皮卡丘</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            皮卡皮卡皮卡丘!
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-31
-                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -709,12 +626,65 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/">
-                        <span class="chip bg-color">网络流</span>
+                    <a href="/tags/DP/">
+                        <span class="chip bg-color">DP</span>
                     </a>
                     
-                    <a href="/tags/%E8%B4%B9%E7%94%A8%E6%B5%81/">
-                        <span class="chip bg-color">费用流</span>
+                    <a href="/tags/DP%E4%BC%98%E5%8C%96/">
+                        <span class="chip bg-color">DP优化</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/07/07/hui-gun-mo-dui-bu-shan-chu-mo-dui/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="回滚莫队&amp;不删除莫队">
+                        
+                        <span class="card-title">回滚莫队&amp;不删除莫队</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            关于莫队的进阶学习
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-07
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    基础学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <span class="chip bg-color">数据结构</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%8E%AB%E9%98%9F/">
+                        <span class="chip bg-color">莫队</span>
                     </a>
                     
                 </div>
