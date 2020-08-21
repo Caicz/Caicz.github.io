@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="数论学习, Caicz&#39;s blog">
+    <meta name="keywords" content="【解题报告】[TJOI2009]猜数字, Caicz&#39;s blog">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>数论学习 | Caicz&#39;s blog</title>
+    <title>【解题报告】[TJOI2009]猜数字 | Caicz&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -246,12 +246,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://s1.ax1x.com/2020/08/20/d8pIhQ.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">数论学习</h1>
+                    <h1 class="description center-align post-title">【解题报告】[TJOI2009]猜数字</h1>
                 </div>
             </div>
         </div>
@@ -372,6 +372,10 @@
                                 <span class="chip bg-color">数学</span>
                             </a>
                         
+                            <a href="/tags/%E4%B8%AD%E5%9B%BD%E5%89%A9%E4%BD%99%E5%AE%9A%E7%90%86/">
+                                <span class="chip bg-color">中国剩余定理</span>
+                            </a>
+                        
                     </div>
                     
                 </div>
@@ -380,8 +384,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/" class="post-category">
-                                基础学习
+                            <a href="/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/" class="post-category">
+                                解题报告
                             </a>
                         
                     </div>
@@ -393,7 +397,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-24
+                    2020-04-30
                 </div>
                 
 
@@ -414,54 +418,36 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h4 id="2020-04-24"><a href="#2020-04-24" class="headerlink" title="2020-04-24"></a>2020-04-24</h4><p>在这一天，我开始了系统的学习数论</p>
+                <h2 id="TJOI2009-猜数字"><a href="#TJOI2009-猜数字" class="headerlink" title="[TJOI2009]猜数字"></a><a href="https://www.luogu.com.cn/problem/P3868" target="_blank" rel="noopener">[TJOI2009]猜数字</a></h2><p>本题所需算法：</p>
 <blockquote>
-<p><strong>筛素数</strong></p>
-<p>埃氏筛素数，<a href="https://www.luogu.com.cn/problem/P3912" target="_blank" rel="noopener">线筛法</a></p>
+<p>中国剩余定理—-<a href="https://www.luogu.com.cn/problem/P1495" target="_blank" rel="noopener">模板</a><br>龟速乘</p>
 </blockquote>
-<blockquote>
-<p><strong>整除与同余</strong></p>
-<p><a href="https://www.luogu.com.cn/problem/P1516" target="_blank" rel="noopener">exgcd与gcd</a></p>
-</blockquote>
-<blockquote>
-<p><strong>乘法逆元</strong></p>
-<p><a href="https://www.luogu.com.cn/problem/P3811" target="_blank" rel="noopener">线性递推求逆元</a>，扩展欧几里德求逆元，费马小定理求逆元($P$必须为素数)</p>
-</blockquote>
-<p><strong>唯一分解定理:</strong> 每一个正整数可以唯一的表示成素数的乘积，换句话说，对于任意正整数$n$,可以得到<br>$$<br>n=2^{a_1}*3^{a_2}*5^{a_3}*\cdots<br>$$</p>
-<p>定理1:</p>
-<p>$$<br> a*b=gcd(a,b)*lcm(a,b)<br>$$</p>
-<p><strong>欧几里德算法:</strong></p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">gcd</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span><span class="token keyword">int</span> b<span class="token punctuation">)</span>
+<h2 id="以下部分主要为扩展中国剩余定理的推导过程-与本题无关，不想看的可以直接跳过"><a href="#以下部分主要为扩展中国剩余定理的推导过程-与本题无关，不想看的可以直接跳过" class="headerlink" title="以下部分主要为扩展中国剩余定理的推导过程(与本题无关，不想看的可以直接跳过)"></a>以下部分主要为<a href="https://www.luogu.com.cn/problem/P4777" target="_blank" rel="noopener">扩展中国剩余定理</a>的推导过程(与本题无关，不想看的可以直接跳过)</h2><p>首先我们要知道中国剩余定理的使用要求</p>
+<p>即题目要求中可以化为一下方程组<br>$$<br>\begin{cases}<br>x\equiv b_1(mod(a_1)) \\<br>x\equiv b_2(mod(a_2)) \\<br>x\equiv b_3(mod(a_3)) \\<br> \cdots\cdots\cdots  \\<br>x\equiv b_n(mod(a_n))<br>\end{cases}<br>$$</p>
+<p>对于每对方程，我们可以得到<br>$$<br>\begin{cases}<br>    x=b_a + k_a\cdot a_a \\<br>    x=b_b + k_b\cdot a_b<br>\end{cases}<br>$$<br>联立化简一下<br>$$<br>k_a\cdot a_a + k_b\cdot a_b = b_b - b_a<br>$$<br>对于这个式子，我们可以用 $exgcd$ 求出 满足要求的关于 $x$ 特解 $x_0$ ,那么可以得到以下式子<br>$$<br>\begin{cases}<br>    x_0=b_a + k_a\cdot a_a \\<br>    x=b_a + k_i\cdot a_a \\<br>    k_i=n\cdot\frac{a_b}{\gcd(a_a,a_b)} + k_a(n\in Z)<br>\end{cases}<br>$$<br>那么可以得到<br>$$<br>x=n\cdot\frac{a_b\cdot a_a}{\gcd(a_a,a_b)} + k_a\cdot a_a + b_a = n\cdot lcm(a_a,b_a) + x_0(n\in Z)<br>$$<br>最后两个同余式就可以合并为<br>$$<br>x\equiv x_0\mod lcm(a_a,a_b)<br>$$</p>
+<p><strong>回到中国剩余定理</strong>，</p>
+<p>由于模数 $P_i$ 都为质数，我们可以设<br>$n_i$是满足下面两个式子的最小正整数<br>$$<br>\begin{cases}<br>    n_i\equiv b_i \mod a_i\\<br>    \frac{\prod_{j=1}^{k}{a_j}}{a_i}\mid n_i<br>\end{cases}<br>$$<br>那么 $\sum_{i=1}^k{n_i}$ 一定是满足条件一个解。<br>但是这并不是满足条件的最小值，所以我们还要在此基础上对 $\prod_{j=1}^{k}{a_j}$ 取模</p>
+<p>那么怎么计算 $n_i$ 呢？<br>我们可以运用 $exgcd$ 求出满足<br> $n_i\equiv 1(mod(a_i))$ 的 $n_i$  ,那么可以得出<br>$$<br>b_i\cdot n_i\equiv b_i \mod a_i<br>$$<br>所以我们答案为</p>
+<p>$$<br>\begin{cases}<br>    ans=\sum_{i=1}^k{n_i\cdot b_i}\\<br>    n_i\equiv 1\mod a_i<br>\end{cases}<br>$$</p>
+<p>代码实现</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">inline</span> ll <span class="token function">china</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>b<span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token keyword">return</span> a<span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token function">gcd</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span>a<span class="token operator">%</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>裴蜀定理:</strong> 对于任意两个完全为0的正整数a,b存在$xa+yb=gcd(a,b)$<br>代码实现:</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">exgcd</span><span class="token punctuation">(</span><span class="token keyword">int</span> b<span class="token punctuation">,</span><span class="token keyword">int</span> a<span class="token punctuation">,</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>x<span class="token punctuation">,</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>y<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>b<span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span>
+    ll W<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>k<span class="token punctuation">,</span>z<span class="token punctuation">,</span>w<span class="token punctuation">,</span>ans<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span><span class="token operator">++</span>i<span class="token punctuation">)</span>W<span class="token operator">*</span><span class="token operator">=</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span><span class="token operator">++</span>i<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
-        x<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>y<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> a<span class="token punctuation">;</span>
+        w<span class="token operator">=</span>W<span class="token operator">/</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token function">exgcd</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span>k<span class="token punctuation">,</span>z<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        ans<span class="token operator">=</span><span class="token punctuation">(</span>ans<span class="token operator">+</span><span class="token function">slow</span><span class="token punctuation">(</span><span class="token function">slow</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span>k<span class="token punctuation">,</span>W<span class="token punctuation">)</span><span class="token punctuation">,</span>b<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span>W<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">%</span>W<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-    <span class="token keyword">int</span> tmp<span class="token operator">=</span><span class="token function">gcd</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span>a<span class="token operator">%</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> t<span class="token operator">=</span>x<span class="token punctuation">;</span>
-    x<span class="token operator">=</span>y<span class="token punctuation">,</span>y<span class="token operator">=</span>t<span class="token operator">-</span>a<span class="token operator">/</span>b<span class="token operator">*</span>y<span class="token punctuation">;</span>
-    <span class="token keyword">return</span> tmp
+    <span class="token keyword">return</span> ans<span class="token operator">=</span><span class="token punctuation">(</span>ans<span class="token operator">+</span>W<span class="token punctuation">)</span><span class="token operator">%</span>W<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>乘法逆元：</strong> 存在$x$使$ax\equiv 1\pmod P $成立，那么就称$x$为$a$关于$P$的乘法逆元，</p>
-<p>定理：$a$关于$P$的乘法逆元存在的充要条件是$gcd(a,p)=1$</p>
-<p>如果逆元存在，则在$0$到$P-1$范围内有且仅有一个逆元。</p>
-<p><strong>作用：</strong> 当需要求$\frac{a}{b}mod(P)$时，其中 a 很大，那么我们可以求出 $b$关于$P$的乘法逆元$x$,则有$\frac{a}{b}\equiv(a\cot x)\pmod P$</p>
-<p><strong>费马小定理：</strong> 假如 P 是素数，且$gcd(a,P)=1$那么就有$a^{p-1}\equiv 1\pmod P$</p>
-<p>我们可以推理得到$a\cdot a^{p-2}\equiv 1\pmod P$，那么根据定义,$a^{p-2}$即为$a$的逆元，其中$a^{p-2}$可以通过快速幂来求</p>
-<p><strong>龟速乘</strong></p>
-<p>将乘法进行二进制拆分，分步取模防止单次乘法溢出,代码类似于快速幂，只需要将其中的乘法换成加法</p>
+<h3 id="龟速乘"><a href="#龟速乘" class="headerlink" title="龟速乘"></a>龟速乘</h3><p>将乘法进行二进制拆分，分步取模防止单次乘法溢出,代码类似于快速幂，只需要将其中的乘法换成加法</p>
 <p>代码实现</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">inline</span> ll <span class="token function">slow</span><span class="token punctuation">(</span>ll a<span class="token punctuation">,</span>ll b<span class="token punctuation">,</span>ll mod<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
     ll ans<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>b<span class="token operator">&lt;</span><span class="token number">0</span><span class="token punctuation">)</span>b<span class="token operator">=</span><span class="token punctuation">(</span>b<span class="token operator">%</span>mod<span class="token operator">+</span>mod<span class="token punctuation">)</span><span class="token operator">%</span>mod<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//如果 b 为负数，龟速乘可能会炸掉，所以先取模将b改为正整数</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>b<span class="token operator">&lt;</span><span class="token number">0</span><span class="token punctuation">)</span>b<span class="token operator">=</span><span class="token punctuation">(</span>b<span class="token operator">%</span>mod<span class="token operator">+</span>mod<span class="token punctuation">)</span><span class="token operator">%</span>mod<span class="token punctuation">;</span>\\如果 b 为负数，龟速乘可能会炸掉，所以先取模将b改为正整数
     <span class="token keyword">while</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         <span class="token keyword">if</span><span class="token punctuation">(</span>b<span class="token operator">%</span><span class="token number">2</span><span class="token punctuation">)</span>ans<span class="token operator">=</span><span class="token punctuation">(</span>ans<span class="token operator">+</span>a<span class="token punctuation">)</span><span class="token operator">%</span>mod<span class="token punctuation">;</span>
@@ -470,27 +456,8 @@
     <span class="token punctuation">}</span>
     <span class="token keyword">return</span> ans<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="咕咕分界线1"><a href="#咕咕分界线1" class="headerlink" title="咕咕分界线1"></a>咕咕分界线1</h2><h2 id="中间的时间被咕咕吃了-咕咕好心的给了地址"><a href="#中间的时间被咕咕吃了-咕咕好心的给了地址" class="headerlink" title="中间的时间被咕咕吃了,咕咕好心的给了地址"></a>中间的时间被咕咕吃了,咕咕好心的给了<a href="https://www.luogu.com.cn/blog/224229/solution-p3868" target="_blank" rel="noopener">地址</a></h2><h4 id="2020-05-01"><a href="#2020-05-01" class="headerlink" title="2020-05-01"></a>2020-05-01</h4><p>终于，今天到了学习数论的第三天，开始了快乐的$Catalan$数，也就是组合数的学习</p>
-<blockquote>
-<p><strong>组合数</strong></p>
-</blockquote>
-<blockquote>
-<p><a href="https://www.luogu.com.cn/problem/P5732" target="_blank" rel="noopener">杨辉三角</a>，<a href="https://www.luogu.com.cn/problem/P2822" target="_blank" rel="noopener">组合数问题</a></p>
-</blockquote>
-<blockquote>
-<p><a href="https://www.luogu.com.cn/problem/P3807" target="_blank" rel="noopener">卢卡斯定理</a></p>
-</blockquote>
-<p><strong>卢卡斯定理:</strong> 设$P$为质数，$a,b$都为正整数，并且</p>
-<p>$ a=a_kp^k+a_{k-1}p^{k-1}+a_{k-2}p^{k-2}+\cdots+a_1p+a_0 $<br>$ b=b_kp^k+b_{k-1}p^{k-1}+b_{k-2}p^{k-2}+\cdots+b_1p+b_0 $</p>
-<p>其中$1&lt;=a_i,b_i&lt;=p-1,i=0,1,2,3,\cdots,k$，那么就有<br>$$<br>C_b^a\equiv C_{b_k}^{a_k}\times C_{b_{k-1}}^{a_{k-1}}\times C_{b_{k-2}}^{a_{k-2}}\times\cdots C_{b_0}^{a_0}\pmod p<br>$$</p>
-<p>用递归写出来就是</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp">    <span class="token function">Lucas</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span>m<span class="token punctuation">)</span><span class="token operator">%</span>p<span class="token operator">=</span><span class="token function">Lucas</span><span class="token punctuation">(</span>n<span class="token operator">/</span>p<span class="token punctuation">,</span>m<span class="token operator">/</span>p<span class="token punctuation">)</span><span class="token operator">*</span><span class="token function">Catalan</span><span class="token punctuation">(</span>n<span class="token operator">%</span>p<span class="token punctuation">,</span>m<span class="token operator">%</span>p<span class="token punctuation">)</span><span class="token operator">%</span>p<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><strong>证明过程</strong></p>
-<h2 id="咕咕分界线2"><a href="#咕咕分界线2" class="headerlink" title="咕咕分界线2"></a>咕咕分界线2</h2><p><strong><a href="https://www.luogu.com.cn/problem/P4720" target="_blank" rel="noopener">拓展卢卡斯定理</a></strong> <del>PS: 感觉和卢卡斯定理关系不大</del></p>
-<h2 id="咕咕分界线3"><a href="#咕咕分界线3" class="headerlink" title="咕咕分界线3"></a>咕咕分界线3</h2><h4 id="2020-05-09"><a href="#2020-05-09" class="headerlink" title="2020-05-09"></a>2020-05-09</h4><p>今天开始了欧拉定理的学习</p>
-<p><strong>欧拉定理：</strong> $\phi(n)$表示从$1-n$的正整数中与$n$互质的数的个数</p>
-<p><strong><a href="https://www.luogu.com.cn/problem/P5091" target="_blank" rel="noopener">拓展欧拉定理</a> :</strong><br>$$<br>a^c=<br>    \begin{cases}<br>    a^{c\bmod\phi(m)}(gcd(a,m)==1)\\<br>    a^c(gcd(a,m)\neq1,c&lt;\phi(m))\\<br>    a^{(c\bmod\phi(m))+\phi(m)}(gcd(a,m)\neq1,c\geq\phi(m))<br>    \end{cases}<br>    \pmod m<br>$$</p>
-<h2 id="咕咕分界线4"><a href="#咕咕分界线4" class="headerlink" title="咕咕分界线4"></a>咕咕分界线4</h2><h4 id="2020-07-28"><a href="#2020-07-28" class="headerlink" title="2020-07-28"></a>2020-07-28</h4>
+<p>$$<br>\large\color{grey}{\text{Thanks for your reading}}<br>$$</p>
+
             </div>
             <hr/>
 
@@ -515,7 +482,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://caicz.github.io/2020/04/24/shu-lun/">https://caicz.github.io/2020/04/24/shu-lun/</a>
+                    <a href="https://caicz.github.io/2020/04/30/jie-ti-bao-gao-tjoi2009-cai-shu-zi/">https://caicz.github.io/2020/04/30/jie-ti-bao-gao-tjoi2009-cai-shu-zi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -555,6 +522,10 @@
                             
                                 <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                     <span class="chip bg-color">数学</span>
+                                </a>
+                            
+                                <a href="/tags/%E4%B8%AD%E5%9B%BD%E5%89%A9%E4%BD%99%E5%AE%9A%E7%90%86/">
+                                    <span class="chip bg-color">中国剩余定理</span>
                                 </a>
                             
                         </div>
@@ -599,7 +570,7 @@
         repo: 'Caicz.github.io',
         owner: 'Caicz',
         admin: "Caicz",
-        id: '2020-04-24T00-00-00',
+        id: '2020-04-30T11-51-17',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -627,31 +598,31 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/04/30/jie-ti-bao-gao-tjoi2009-cai-shu-zi/">
+                <a href="/2020/07/07/hui-gun-mo-dui-bu-shan-chu-mo-dui/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="【解题报告】[TJOI2009]猜数字">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="回滚莫队&amp;不删除莫队">
                         
-                        <span class="card-title">【解题报告】[TJOI2009]猜数字</span>
+                        <span class="card-title">回滚莫队&amp;不删除莫队</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            需求中国剩余定理求解的一道较为模板的题
+                            关于莫队的进阶学习
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-30
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-07
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/" class="post-category">
-                                    解题报告
+                            <a href="/categories/%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    基础学习
                                 </a>
                             
                             
@@ -661,12 +632,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                        <span class="chip bg-color">数学</span>
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <span class="chip bg-color">数据结构</span>
                     </a>
                     
-                    <a href="/tags/%E4%B8%AD%E5%9B%BD%E5%89%A9%E4%BD%99%E5%AE%9A%E7%90%86/">
-                        <span class="chip bg-color">中国剩余定理</span>
+                    <a href="/tags/%E8%8E%AB%E9%98%9F/">
+                        <span class="chip bg-color">莫队</span>
                     </a>
                     
                 </div>
@@ -677,7 +648,7 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
                 <a href="/2020/04/24/shu-lun/">
@@ -710,7 +681,6 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
