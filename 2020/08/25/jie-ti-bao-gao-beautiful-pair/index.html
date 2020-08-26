@@ -435,7 +435,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="题目链接-https-www-luogu-com-cn-problem-P4755"><a href="#题目链接-https-www-luogu-com-cn-problem-P4755" class="headerlink" title="[题目链接])( https://www.luogu.com.cn/problem/P4755 )"></a>[题目链接])( <a href="https://www.luogu.com.cn/problem/P4755" target="_blank" rel="noopener">https://www.luogu.com.cn/problem/P4755</a> )</h3><hr>
+                <h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a><a href="https://www.luogu.com.cn/problem/P4755" target="_blank" rel="noopener">题目链接</a></h3><hr>
 <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>Captain Orange 讲课的作业题，同时也是第一次长时间没打某种大数据结构后，第一次不看以前的 讲义/笔记/博客 YY出来了，写文祭之</p>
 <h4 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h4><p>给你一个长度为 $n$ 的数列，当数列中的一个数对 $(i,j)\quad i&lt;=j$ 满足 $a_ia_j&lt;=max(a_i,a_{i+1},a_{i+1},\cdots,a_j)$ ，则称这个数对是美丽的，求出美丽的数对的个数$\qquad 1\le n\le1e5\quad 1\le a_i\le1e9$</p>
 <h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>题目中要求的是一段区间，所以我们考虑分治(套路)。观察题目，我们发现对于每一段区间，对于答案有影响的只有最大的数，我们可以用 st表 提前预处理出当前区间最大的数的值和位置，设这个位置为 $mid$ </p>
