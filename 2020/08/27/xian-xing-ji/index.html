@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="【解题报告】[SDOI2015]约数个数和, Caicz&#39;s blog">
+    <meta name="keywords" content="线性基, Caicz&#39;s blog">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>【解题报告】[SDOI2015]约数个数和 | Caicz&#39;s blog</title>
+    <title>线性基 | Caicz&#39;s blog</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Caicz/Caicz.github.io@master/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Caicz/Caicz.github.io@master/libs/awesome/css/all.css">
@@ -264,7 +264,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">【解题报告】[SDOI2015]约数个数和</h1>
+                    <h1 class="description center-align post-title">线性基</h1>
                 </div>
             </div>
         </div>
@@ -381,10 +381,6 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94/">
-                                <span class="chip bg-color">莫比乌斯反演</span>
-                            </a>
-                        
                             <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                 <span class="chip bg-color">数学</span>
                             </a>
@@ -397,8 +393,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/" class="post-category">
-                                解题报告
+                            <a href="/categories/%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                基础学习
                             </a>
                         
                     </div>
@@ -410,7 +406,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-08-24
+                    2020-08-27
                 </div>
                 
 
@@ -431,58 +427,56 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a><a href="https://www.luogu.com.cn/problem/P3327" target="_blank" rel="noopener">题目链接</a></h3><hr>
-<p>要完成这道题，我们首先需要知道关于约数函数 $d(x)$ 的性质，即<br>$$<br>d(ij)=\sum_{x|i}\sum_{y|j}[\gcd(x,y)==1]<br>$$<br>知道这个性质后，我们就可以愉快的<strong>推式子</strong>了</p>
-<hr>
-<p>$$<br>\begin{align}<br>&amp;{\bf{设}}\qquad<br>f(d)=\sum_{i=1}^n\sum_{j=1}^m[\gcd(x,y)==d],F(n)=\sum_{n|d}f(d)<br>\\<br>&amp;{\bf{反演得}}\qquad f(n)=\sum_{n|d}\mu(\frac{d}{n})\cdot F(d)<br>\\<br>&amp;{\bf{根据 \text{ $d(x)$ }我们得到 }}<br>\\<br>&amp;Ans=\sum_{i=1}^n\sum_{j=1}^m\sum_{x|i}\sum_{y|j}[\gcd(x,y)==1]\\<br>&amp;=\sum_{i=1}^n\sum_{j=1}^m\sum_{x|i}\sum_{y|j}\sum_{d|\gcd(x,y)}\mu(d)\\<br>&amp;{\bf{我们考虑枚举\text{ $d$ },即}}<br>\\<br>&amp;Ans=\sum_{i=1}^n\sum_{j=1}^m\sum_{x|i}\sum_{y|j}\sum_{d}^{\min(n,m)}\mu(d)\cdot [d|\gcd(x,y)]<br>\\<br>&amp;=\sum_{d}^{\min(n,m)}\mu(d)\sum_{i=1}^n\sum_{j=1}^m\sum_{x|i}\sum_{y|j}[d|\gcd(x,y)]<br>\\<br>&amp;=\sum_{d}^{\min(n,m)}\mu(d)\sum_{i=1}^n\sum_{j=1}^m [d|\gcd(x,y)]\lfloor\frac{n}{i}\rfloor\lfloor\frac{m}{j}\rfloor<br>\\<br>&amp;=\sum_{d}^{\min(n,m)}\mu(d)\sum_{i=1}^{\lfloor\frac{n}{d}\rfloor}\sum_{j=1}^{[\frac{m}{d}\rfloor}\lfloor\frac{n}{i}\rfloor\lfloor\frac{m}{j}\rfloor<br>\\<br>&amp;=\sum_{d}^{\min(n,m)}\mu(d){\left(\sum_{i=1}^{\lfloor\frac{n}{d}\rfloor}\lfloor\frac{n}{i}\rfloor\right)}{\left(\sum_{j=1}^{\lfloor\frac{m}{d}\rfloor}\lfloor\frac{m}{j}\rfloor\right)}<br>\\<br>\end{align}<br>$$<br>得出最终的式子后，我们预处理一下前缀和，就可以用整除分块解决了<br>$$<br>\large\color{grey}{\text{Talk is cheap, show you the code}}<br>$$</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">get_pre</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span>
+                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>线性基算是上周网课，都讲过的内容了，<del>但网课时上的不认真</del>现在才开始我的线性基学习</p>
+<h3 id="算法内容"><a href="#算法内容" class="headerlink" title="算法内容"></a>算法内容</h3><hr>
+<h4 id="线性基简介"><a href="#线性基简介" class="headerlink" title="线性基简介"></a>线性基简介</h4><p>线性基是一种擅长处理异或问题的<del>数据结构</del>数学工具(虽然有数据结构的许多性质，但参考 $OI-Wiki$ 将其划分到了数论板块)</p>
+<p>线性基是向量空间的一组基，通俗一点将就是有一个集合构造出来的另一个集合，它满足这些性质:</p>
+<ol>
+<li>线性基的元素能相互异或得到原集合元素的所有相互异或得到的值</li>
+<li>线性基是满足<strong>性质1</strong>的最小的集合</li>
+<li>线性基中没有异或和为 0 的子集</li>
+<li>线性基中每个元素的异或方案唯一，也就是说，线性基不同的异或组合异或出的数据是不一样的</li>
+<li>线性基中每个元素的二进制最高位互不相同</li>
+</ol>
+<h4 id="线性基的插入-构造"><a href="#线性基的插入-构造" class="headerlink" title="线性基的插入/构造"></a>线性基的插入/构造</h4><p>如果我们要插入的数为 $x$ ，我们判断 $x$ 的最高位 $i$ 在线性基中是否已经存在。</p>
+<ul>
+<li>如果不存在，我们直接在当前位置上插入 $x$ 并退出</li>
+<li>如果已经存在值为 $p_i$ ，则令 $ x=x\bigoplus p_i$ ,再重复判断直至 $x=0$</li>
+</ul>
+<p>如果退出时 $x=0$ 则说明线性基已经可以表示原先的 $x$ 了；反之，则说明为了表示 $x$ ，我们往线性基中加入了一个新元素</p>
+<p>这样的复杂度是 $\log_2x$ 的，我们也可以用这种方法判断是否能过通过原数列异或得到一个数 $x$ </p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">insert</span><span class="token punctuation">(</span>ll x<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-    mu<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">register</span> <span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span><span class="token operator">++</span>i<span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>vis<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
-        <span class="token punctuation">{</span>
-            mu<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-            prim<span class="token punctuation">[</span><span class="token operator">++</span>cnt<span class="token punctuation">]</span><span class="token operator">=</span>i<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">register</span> <span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>j<span class="token operator">&lt;=</span>cnt<span class="token operator">&amp;&amp;</span>i<span class="token operator">*</span>prim<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">&lt;=</span>n<span class="token punctuation">;</span><span class="token operator">++</span>j<span class="token punctuation">)</span>
-        <span class="token punctuation">{</span>
-            vis<span class="token punctuation">[</span>prim<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">*</span>i<span class="token punctuation">]</span><span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token punctuation">(</span>i<span class="token operator">%</span>prim<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token keyword">break</span><span class="token punctuation">;</span>
-            mu<span class="token punctuation">[</span>prim<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">*</span>i<span class="token punctuation">]</span><span class="token operator">=</span><span class="token operator">-</span>mu<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">register</span> <span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span><span class="token operator">++</span>i<span class="token punctuation">)</span>g<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span>g<span class="token punctuation">[</span>i<span class="token number">-1</span><span class="token punctuation">]</span><span class="token operator">+</span>mu<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">register</span> <span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span><span class="token operator">++</span>i<span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        ll res<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">register</span> <span class="token keyword">int</span> l<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>r<span class="token punctuation">;</span>l<span class="token operator">&lt;=</span>i<span class="token punctuation">;</span>l<span class="token operator">=</span>r<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span>
-        <span class="token punctuation">{</span>
-            r<span class="token operator">=</span><span class="token punctuation">(</span>i<span class="token operator">/</span><span class="token punctuation">(</span>i<span class="token operator">/</span>l<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            res<span class="token operator">+</span><span class="token operator">=</span><span class="token number">1ll</span><span class="token operator">*</span><span class="token punctuation">(</span>r<span class="token operator">-</span>l<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token punctuation">(</span>i<span class="token operator">/</span>l<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        sum<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span>res<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">register</span> <span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">62</span><span class="token punctuation">;</span>i<span class="token operator">!=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span><span class="token operator">--</span>i<span class="token punctuation">)</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>x<span class="token operator">&amp;</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>p<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>p<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span>x<span class="token punctuation">;</span><span class="token keyword">return</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
+            <span class="token keyword">else</span> x<span class="token operator">^</span><span class="token operator">=</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    minans<span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token keyword">signed</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+<span class="token keyword">inline</span> <span class="token keyword">bool</span> <span class="token function">check</span><span class="token punctuation">(</span>ll x<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-    T<span class="token operator">=</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">get_pre</span><span class="token punctuation">(</span><span class="token number">50000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">while</span><span class="token punctuation">(</span>T<span class="token operator">--</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        n<span class="token operator">=</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>m<span class="token operator">=</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>n<span class="token operator">></span>m<span class="token punctuation">)</span><span class="token function">swap</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span>m<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        ll ans<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">register</span> <span class="token keyword">int</span> l<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>r<span class="token punctuation">;</span>l<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span>l<span class="token operator">=</span>r<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span>
-        <span class="token punctuation">{</span>
-            r<span class="token operator">=</span><span class="token function">min</span><span class="token punctuation">(</span>n<span class="token operator">/</span><span class="token punctuation">(</span>n<span class="token operator">/</span>l<span class="token punctuation">)</span><span class="token punctuation">,</span>m<span class="token operator">/</span><span class="token punctuation">(</span>m<span class="token operator">/</span>l<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            ans<span class="token operator">+</span><span class="token operator">=</span><span class="token number">1ll</span><span class="token operator">*</span><span class="token punctuation">(</span>g<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token operator">-</span>g<span class="token punctuation">[</span>l<span class="token number">-1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">*</span>sum<span class="token punctuation">[</span>n<span class="token operator">/</span>l<span class="token punctuation">]</span><span class="token operator">*</span>sum<span class="token punctuation">[</span>m<span class="token operator">/</span>l<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%lld\n"</span><span class="token punctuation">,</span>ans<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">register</span> <span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">62</span><span class="token punctuation">;</span>i<span class="token operator">!=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span><span class="token operator">--</span>i<span class="token punctuation">)</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>x<span class="token operator">&amp;</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>p<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            <span class="token keyword">else</span> x<span class="token operator">^</span><span class="token operator">=</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="线性基查询异或最值"><a href="#线性基查询异或最值" class="headerlink" title="线性基查询异或最值"></a>线性基查询异或最值</h4><p>查询最小值相对比较简单。我们考虑插入的过程，因为每一次跳传操作中，$x$ 的二进制最高位一定严格单调递减，所以不可能插入两个二进制最高位相同的数。因此，线性基中最小值异或上其他值一定会增大，所以直接输出线性基中的最小值即可</p>
+<p>考虑异或最大值，从高到低遍历线性基，考虑到第 $i$ 位时，如果当前的答案 $x$ 第 $i$ 位为 $0$ ，就将 $x$ 异或上 $a_i$ ；否则不做任何操作。显然，每次操作后答案不会变劣，最终的 $x$ 即为答案。 </p>
+<p>同样的，我们考虑对于询问某个数 $x$ 与原序列中的数的异或最值如何获得，我们用与序列异或最大值类似的贪心即可解决</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">inline</span> ll <span class="token function">qmin</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>minans<span class="token punctuation">)</span><span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">register</span> <span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span><span class="token number">62</span><span class="token punctuation">;</span><span class="token operator">++</span>i<span class="token punctuation">)</span><span class="token keyword">return</span> p<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">inline</span> ll <span class="token function">qmax</span><span class="token punctuation">(</span>ll res<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">register</span> <span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">62</span><span class="token punctuation">;</span>i<span class="token operator">!=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span><span class="token operator">--</span>i<span class="token punctuation">)</span>res<span class="token operator">=</span><span class="token function">max</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span>res<span class="token operator">^</span>p<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>在学线性基之前，一直认为是比较高深的算法，但真的沉下去学之后，才发现似乎并没有想象中的那么高深qwq<br><a href="https://www.luogu.com.cn/problem/P3812" target="_blank" rel="noopener"><strong>模板题</strong></a></p>
 
             </div>
             <hr/>
@@ -508,7 +502,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://czicz.cn/2020/08/24/jie-ti-bao-gao-sdoi2015-yue-shu-ge-shu-he/">https://czicz.cn/2020/08/24/jie-ti-bao-gao-sdoi2015-yue-shu-ge-shu-he/</a>
+                    <a href="https://czicz.cn/2020/08/27/xian-xing-ji/">https://czicz.cn/2020/08/27/xian-xing-ji/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -545,10 +539,6 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94/">
-                                    <span class="chip bg-color">莫比乌斯反演</span>
-                                </a>
                             
                                 <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                     <span class="chip bg-color">数学</span>
@@ -596,7 +586,7 @@
         repo: 'Caicz.github.io',
         owner: 'Caicz',
         admin: "Caicz",
-        id: '2020-08-24T18-57-30',
+        id: '2020-08-27T07-47-49',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -624,25 +614,74 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/08/25/jie-ti-bao-gao-beautiful-pair/">
+                <a href="/2222/02/22/mei-zhong-ji-fang-yao-guai-tu-jian/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/Caicz/Caicz.github.io@master/medias/featureimages/16.jpg" class="responsive-img" alt="【解题报告】Beautiful Pair">
+                        <img src="https://cdn.jsdelivr.net/gh/Caicz/Caicz.github.io@master/medias/featureimages/21.jpg" class="responsive-img" alt="妹中机房妖怪图鉴">
                         
-                        <span class="card-title">【解题报告】Beautiful Pair</span>
+                        <span class="card-title">妹中机房妖怪图鉴</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            给你一个长度为 n 的数列……
+                            此文章已被加密
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-08-25
+                            <i class="far fa-clock fa-fw icon-date"></i>2222-02-22
                         </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Touhou/" class="post-category">
+                                    Touhou
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%A6%96%E6%80%AA%E5%9B%BE%E9%89%B4/">
+                        <span class="chip bg-color">妖怪图鉴</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/08/26/jie-ti-bao-gao-noi2011-a-li-de-da-zi-ji/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/Caicz/Caicz.github.io@master/medias/featureimages/18.jpg" class="responsive-img" alt="【解题报告】[NOI2011]阿狸的打字机">
+                        
+                        <span class="card-title">【解题报告】[NOI2011]阿狸的打字机</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            毒瘤题……
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-26
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -662,61 +701,16 @@
                         <span class="chip bg-color">数据结构</span>
                     </a>
                     
-                    <a href="/tags/%E4%B8%BB%E5%B8%AD%E6%A0%91/">
-                        <span class="chip bg-color">主席树</span>
+                    <a href="/tags/AC%E8%87%AA%E5%8A%A8%E6%9C%BA/">
+                        <span class="chip bg-color">AC自动机</span>
                     </a>
                     
-                    <a href="/tags/RMQ%E9%97%AE%E9%A2%98/">
-                        <span class="chip bg-color">RMQ问题</span>
+                    <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                        <span class="chip bg-color">字符串</span>
                     </a>
                     
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/08/22/luo-gu-ba-yue-yue-sai-iizong-jie/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="https://cdn.jsdelivr.net/gh/Caicz/Caicz.github.io@master/medias/featureimages/3.jpg" class="responsive-img" alt="洛谷八月月赛Ⅱ总结">
-                        
-                        <span class="card-title">洛谷八月月赛Ⅱ总结</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            洛谷月赛总结
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-22
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E8%B5%9B%E5%90%8E%E6%80%BB%E7%BB%93/" class="post-category">
-                                    赛后总结
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E6%A8%A1%E6%8B%9F/">
-                        <span class="chip bg-color">模拟</span>
+                    <a href="/tags/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/">
+                        <span class="chip bg-color">树状数组</span>
                     </a>
                     
                 </div>
