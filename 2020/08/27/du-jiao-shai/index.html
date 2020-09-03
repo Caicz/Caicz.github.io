@@ -474,7 +474,7 @@
 </blockquote>
 <p>即我们需要计算的式子大致可以变成这样: $\sum_{i=1}^nf(i)$ ( $f(i)$ 为积性函数)</p>
 <h4 id="理论知识"><a href="#理论知识" class="headerlink" title="理论知识"></a>理论知识</h4><p>为了解决以上的问题，我们构造两个积性函数 $g$ 和 $h$ ，令 $h=f*g$<br>现在我们开始求 $\sum_{i=1}^nh(i)$</p>
-<p>记 $S(n)=\sum_{i=1}^nh(i)$<br>$$<br>\begin{align}<br>\sum_{i=1}^nh(i)&amp;=\sum_{i=1}^n\sum_{d|i}g(d)\cdot f(\frac{i}{d})<br>\\<br>&amp;=\sum_{d=1}^ng(d)\sum_{i=1}^{\lfloor\frac{n}{d}\rfloor}f(i)<br>\\<br>&amp;=\sum_{d=1}^ng(i)\cdot S(\lfloor\frac{n}{d}\rfloor)<br>\end{align}<br>$$<br>接下来，我们将左边式子的首项提出来，就可以得到<br>$$<br>\begin{align}<br>&amp;\sum_{i=1}^nh(i)=g(1)S(n)\cdot\sum_{d=2}^ng(i)\cdot S(\lfloor\frac{n}{d}\rfloor)\\<br>&amp;\to g(1)S(n)=\sum_{i=1}^nh(i)-\sum_{d=2}^ng(i)\cdot S(\lfloor\frac{n}{d}\rfloor)<br>\end{align}<br>$$<br>经过各种大佬的分析，只要 $h(n)$ 的前缀和很好求，那么当我们对后面的式子进行整除分块时，求 $S(n)$ 的复杂度约为 $O(n^{\frac{2}{3}})$</p>
+<p>记 $S(n)=\sum_{i=1}^nh(i)$<br>$$<br>\begin{align}<br>\sum_{i=1}^nh(i)&amp;=\sum_{i=1}^n\sum_{d|i}g(d)\cdot f(\frac{i}{d})<br>\\<br>&amp;=\sum_{d=1}^ng(d)\sum_{i=1}^{\lfloor\frac{n}{d}\rfloor}f(i)<br>\\<br>&amp;=\sum_{d=1}^ng(d)\cdot S(\lfloor\frac{n}{d}\rfloor)<br>\end{align}<br>$$<br>接下来，我们将左边式子的首项提出来，就可以得到<br>$$<br>\begin{align}<br>&amp;\sum_{i=1}^nh(i)=g(1)S(n)-\sum_{d=2}^ng(d)\cdot S(\lfloor\frac{n}{d}\rfloor)\\<br>&amp;\to g(1)S(n)=\sum_{i=1}^nh(i)-\sum_{d=2}^ng(d)\cdot S(\lfloor\frac{n}{d}\rfloor)<br>\end{align}<br>$$<br>经过各种大佬的分析，只要 $h(n)$ 的前缀和很好求，那么当我们对后面的式子进行整除分块时，求 $S(n)$ 的复杂度约为 $O(n^{\frac{2}{3}})$</p>
 <p>知道杜教筛的大概式子之后，可能会思考如何选取 $h$ 和 $g$ </p>
 <p>但很遗憾的的是，这个只能靠平时的对于狄利克雷卷积中的各种式子的熟悉，以及观察式子性质的能力</p>
 <h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><h5 id="一"><a href="#一" class="headerlink" title="一"></a>一</h5><p>求 $S(n)=\sum_{i=1}^n\mu(i)\qquad n&lt;=10^{10}$</p>
