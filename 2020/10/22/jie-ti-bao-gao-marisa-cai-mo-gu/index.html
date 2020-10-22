@@ -428,6 +428,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>采用了离线后树状数组的做法，常数极小，且树状数组只需要维护单点修改，区间查找，<del>轻松跑到最优解</del></p>
+<h4 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h4><p>给你一个长度为 $n$ 的序列 $a_1,a_2,a_3\dots a_n$ ，$m$ 次询问一个区间 $[l,r]$ ，求区间中出现次数与区间外出现次数的差小于 $k$ 的不同权值个数，对于每个询问 $k$ 相同<br>                    $1\le a_i,n,m\le1e6$</p>
 <h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>类似于各种区间求众数题，很显然的我们可以将询问离线后从左到右依次处理</p>
 <p>当找到一个对于 $a[x]$ 满足条件的前缀 x ，即满足 $|2\times cnt[a[x]]-sum[a[x]]|&lt;=k$ 时<br>我们在 $x$ 插入 1，并删除掉之前在 $pre[x]$ 插入的 1，一直维护最小区间即可</p>
 <p>当现在所在的前缀第一次满足 $2\times cnt[a[x]]-sum[a[x]]&gt;k$ 时<br>我们在区间从左到右第一个 $a[x]$ 处插入 -1，同时重复上面的操作，之后每多遍历到一个 $a[x]$ ，我们就分别将 -1 和 1 向右移到下一个 $a[x]$，这里可以对每个权值预处理维护一个仅包含 $next$ 指针的链表来 $O(1)$ 解决</p>
