@@ -29,6 +29,31 @@
     
     
     <entry>
+      <title>CSP—-S 2020 游记</title>
+      <link href="/2020/11/08/csp-s-2020-you-ji/"/>
+      <url>/2020/11/08/csp-s-2020-you-ji/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Day-0"><a href="#Day-0" class="headerlink" title="Day 0"></a>Day 0</h2><p>下午到了成都省，晚上和高一的神仙一起去吃火锅，吃火锅时偶遇(bushi)神技大学的学长，和学长对群里的id，成功错排，++rp</p><p>晚上在酒店自习，刚开始水群 1分钟就被教练抓获，–rp</p><p>上完自习后冲了半小时澡，免费的澡真舒服qwq<br>教练禁止开电视，为了防止再次被抓获，和苏神一起看禁音电视，美队2还是挺不错的？</p><h2 id="Day-1-上午"><a href="#Day-1-上午" class="headerlink" title="Day 1 上午"></a>Day 1 上午</h2><p>也在酒店自习，碰面才知道昨晚也有人在看美队2<br>打了几个数学和字符串的板子，中午教练点的外卖，早知道是番茄汤就不选番茄牛肉了</p><h2 id="Day-1-下午"><a href="#Day-1-下午" class="headerlink" title="Day 1 下午"></a>Day 1 下午</h2><p>很早就到了神技大学门口，到了考场下排队，对面是七中爷在讨论<br>进来考场后，坐在位置上，下发文件时顺便看了下考场的硬件配置，以外的不错？<br>看了T1，是大模拟，细节太多了，感觉会挂掉，打了 1h+<br>T2 意外的挺水，20min 打完，在linux下过了大样例<br>T3 一看题有一点思路，花了1.5h后发现思路假了，果断暴力走人<br>T4 完全没思路，先把n==3的数据水了，最后 5分钟有了个大概思路</p><p>出考场后一问，发现t1 有个地方忘记特判了，很慌qwq，但其他题大部分人都差不多，就还好</p><h2 id="Day-2"><a href="#Day-2" class="headerlink" title="Day 2"></a>Day 2</h2><p>去luogu上测民间数据，t1完全炸了-&gt; 10pts ，t2 离散化比较用下标和值比较，但还有 85pts？后面两道题和预期相符</p><p>省一无望，我退役力</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 赛后总结 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 模拟 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【解题报告】Marisa采蘑菇</title>
       <link href="/2020/10/22/jie-ti-bao-gao-marisa-cai-mo-gu/"/>
       <url>/2020/10/22/jie-ti-bao-gao-marisa-cai-mo-gu/</url>
